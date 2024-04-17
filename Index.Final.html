@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="LoginBase">
+        <form id="signupForm" onsubmit="return displayInfo()">
+            <fieldset form="Basic information">  
+                <legend>Simple Log-in</legend>
+                <label for="userName">What is your REAL name</label><br/>
+                <input type="text" id="userName" name="userName" onblur="checkInput(this)" onfocus="resetBorder(this)"><br/>
+                <br>
+                <label for="PreferredUser">What would you like us to call you?:</label><br/>
+                <input type="text" id="PreferredUser" name="PreferredUser" onblur="checkInput(this)" onfocus="resetBorder(this)"><br/>
+                <br>
+                <label for="Password">Input your password</label><br/>
+                <input type="password" id="PWord" name="Password" onblur="checkInput(this)" onfocus="resetBorder(this)"><br/>
+                <br>
+                <label for="EMAIL">Please input your email</label><br/>
+                <input type="text" name="EMAIL" id="email" onblur="checkInput(this)" onfocus="resetBorder(this)"><br/>
+                <br>
+                <label for="Location">We would like to know where you hiding</label><br/>
+                <input type="text" name="Address" id="WhereDoYouLive" onblur="checkInput(this)" onfocus="resetBorder(this)"><br/>
+                <br>
+                <label>Gender:</label><br/>
+                <input type="radio" id="male" name="gender" value="male" onclick="checkInput(this)"> Male<br>
+                <input type="radio" id="female" name="gender" value="female" onclick="checkInput(this)"> Female<br>
+                <input type="radio" id="na" name="gender" value="na" onclick="checkInput(this)"> Prefer not to mention<br>
+                <br>
+                <label for="moreinfo">We would like to know more about you. in 3-4 paragraphs list your interests</label><br/>
+                <textarea name="TAREA" id="moreinfo" cols="30" rows="10" onblur="checkInput(this)" onfocus="resetBorder(this)"></textarea><br/>
+                <br>
+                <label for="interests">Select your interests:</label><br>
+                <input type="checkbox" id="interest1" name="interest1" value="Interest 1" onclick="checkInput(this)"> Reading<br>
+                <input type="checkbox" id="interest2" name="interest2" value="Interest 2" onclick="checkInput(this)"> Writing<br>
+                <input type="checkbox" id="interest3" name="interest3" value="Interest 3" onclick="checkInput(this)"> Playing games<br>
+                <textarea name="Interests" id="interests" cols="30" rows="10" onblur="checkInput(this)" onfocus="resetBorder(this)"></textarea><br/>
+                <br>
+                <br>
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </fieldset>
+        </form>
+        <div class="output" id="output"></div>
+    </div>
+    
+    <script>
+        function checkInput(input) {
+            if (input.value === '') {
+                input.style.border = '1px solid red';
+            } else {
+                input.style.border = '1px solid green';
+            }
+        }
+
+        function resetBorder(input) {
+            input.style.border = '';
+        }
+
+        function displayInfo() {
+            var form = document.getElementById('signupForm');
+            var output = document.getElementById('output');
+            var selectedInterests = "";
+            var checkboxes = document.getElementsByName("interests");
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selectedInterests += checkboxes[i].value + ", ";
+                }
+            }
+            selectedInterests = selectedInterests.slice(0, -2); 
+            output.innerHTML = '<p>Real Name: ' + form.userName.value + '</p>' +
+                '<p>Preferred Name: ' + form.PreferredUser.value + '</p>' +
+                '<p>Email: ' + form.EMAIL.value + '</p>' +
+                '<p>Location: ' + form.Address.value + '</p>' +
+                '<p>Gender: ' + form.gender.value + '</p>' +
+                '<p>Interests: ' + form.TAREA.value + '</p>' +
+                '<p>Selected Interests: ' + selectedInterests + '</p>';
+            output.style.display = 'block';
+            return false; 
+        }
+    </script>
+</body>
+</html>
